@@ -1,14 +1,18 @@
 using MethodReturnChecker.Common.Constants;
 using MethodReturnChecker.Common.Models;
 using MethodReturnChecker.Services;
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MethodReturnChecker.FormUI
 {
     public partial class Form1 : Form
     {
         private readonly FileModelService _fileModelService;
+        private bool isDragging = false;
+        private Point dragStartPoint;
         public Form1()
         {
             InitializeComponent();
@@ -22,6 +26,7 @@ namespace MethodReturnChecker.FormUI
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 folderPathTextBox.Text = folderBrowserDialog1.SelectedPath;
+                
             }
             else
             {
@@ -44,10 +49,8 @@ namespace MethodReturnChecker.FormUI
                 }
 
                 var matchedResults = _fileModelService.GetMatchedFileModelResults(csFileModelsResult.Data, patternTextBox.Text, containingTextBox.Text);
-
                 displayMatchResultForm(matchedResults.Data);
             }
-
         }
 
         private void displayMatchResultForm(List<ResultModel> matchedResults)
@@ -76,6 +79,30 @@ namespace MethodReturnChecker.FormUI
         private void minimizedButton_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                dragStartPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!isDragging)
+                return;
+
+            Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
+            newLocation.Offset(-dragStartPoint.X, -dragStartPoint.Y);
+            this.Location = newLocation;
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
         }
     }
 }

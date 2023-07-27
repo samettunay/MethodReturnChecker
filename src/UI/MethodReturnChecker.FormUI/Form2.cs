@@ -14,7 +14,8 @@ namespace MethodReturnChecker.FormUI
     public partial class Form2 : Form
     {
         private readonly List<ResultModel> _resultModels;
-
+        private bool isDragging = false;
+        private Point dragStartPoint;
         public Form2(List<ResultModel> resultModels)
         {
             InitializeComponent();
@@ -49,6 +50,30 @@ namespace MethodReturnChecker.FormUI
         private void minimizedButton_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                dragStartPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!isDragging)
+                return;
+
+            Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
+            newLocation.Offset(-dragStartPoint.X, -dragStartPoint.Y);
+            this.Location = newLocation;
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
         }
     }
 }

@@ -41,6 +41,7 @@
             closeButton = new RJButton();
             minimizedButton = new RJButton();
             titleLabel = new Label();
+            loadingLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -172,12 +173,24 @@
             titleLabel.TabIndex = 24;
             titleLabel.Text = "Method Return Checker";
             // 
+            // loadingLabel
+            // 
+            loadingLabel.AutoSize = true;
+            loadingLabel.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            loadingLabel.Location = new Point(265, 120);
+            loadingLabel.Name = "loadingLabel";
+            loadingLabel.Size = new Size(124, 17);
+            loadingLabel.TabIndex = 25;
+            loadingLabel.Text = "Dosyalar taranıyor...";
+            loadingLabel.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(65, 68, 75);
             ClientSize = new Size(397, 386);
+            Controls.Add(loadingLabel);
             Controls.Add(titleLabel);
             Controls.Add(minimizedButton);
             Controls.Add(closeButton);
@@ -195,6 +208,9 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            MouseDown += Form1_MouseDown;
+            MouseMove += Form1_MouseMove;
+            MouseUp += Form1_MouseUp;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -213,5 +229,6 @@
         private RJButton closeButton;
         private RJButton minimizedButton;
         private Label titleLabel;
+        private Label loadingLabel;
     }
 }
