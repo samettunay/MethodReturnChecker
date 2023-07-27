@@ -2,6 +2,7 @@ using MethodReturnChecker.Common.Constants;
 using MethodReturnChecker.Common.Models;
 using MethodReturnChecker.Services;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -21,7 +22,7 @@ namespace MethodReturnChecker.FormUI
             containingTextBox.Text = RegexDefaults.DefaultContainting;
         }
 
-        private void selectFolderButton_Click(object sender, EventArgs e)
+        private async void selectFolderButton_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -32,10 +33,13 @@ namespace MethodReturnChecker.FormUI
             {
                 folderPathTextBox.Text = string.Empty;
             }
-            matchAllCsFiles();
+
+            loadingLabel.Visible = true;
+            await Task.Run(matchAllCsFiles);
+            loadingLabel.Visible = false;
         }
 
-        private void matchAllCsFiles()
+        private async Task matchAllCsFiles()
         {
             if (!string.IsNullOrWhiteSpace(folderPathTextBox.Text))
             {
@@ -55,6 +59,7 @@ namespace MethodReturnChecker.FormUI
 
         private void displayMatchResultForm(List<ResultModel> matchedResults)
         {
+            
             Form2 form2 = new Form2(matchedResults);
             form2.ShowDialog();
         }
