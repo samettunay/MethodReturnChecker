@@ -8,7 +8,7 @@ namespace MethodReturnChecker.Services
 {
     public class FileService : IFileService
     {
-        public List<ResultModel> MatchFile(string filePath, string pattern, string containingValue)
+        public List<ResultModel> MatchFile(string folderPath, string filePath, string pattern, string containingValue)
         {
             List<ResultModel> resultModels = new List<ResultModel>();
 
@@ -29,7 +29,7 @@ namespace MethodReturnChecker.Services
                     {
                         var newResultModel = new ResultModel()
                         {
-                            FilePath = filePath,
+                            FilePath = filePath.Replace(folderPath, string.Empty),
                             MatchedLine = matchedLine.Trim(),
                             LineNumber = currentLineNumber,
                         };

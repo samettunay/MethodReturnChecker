@@ -41,7 +41,7 @@ namespace MethodReturnChecker.FormUI
 
             foreach (var csFilePath in csFiles)
             {
-                var matchedResults = _fileModelService.MatchFile(csFilePath, RegexDefaults.DefaultPattern, RegexDefaults.DefaultContainting);
+                var matchedResults = _fileModelService.MatchFile(folderPath, csFilePath, RegexDefaults.DefaultPattern, RegexDefaults.DefaultContainting);
                 resultModels.AddRange(matchedResults);
 
                 progressBar1.Value++;
