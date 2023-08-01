@@ -29,41 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            inputLabel = new Label();
-            patternLabel = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             folderPathTextBox = new TextBox();
-            patternTextBox = new TextBox();
-            containingTextBox = new TextBox();
             pictureBox1 = new PictureBox();
             rjButton1 = new RJButton();
             closeButton = new RJButton();
             minimizedButton = new RJButton();
             titleLabel = new Label();
-            loadingLabel = new Label();
+            splitContainer1 = new SplitContainer();
+            label1 = new Label();
+            label2 = new Label();
+            dataGridView1 = new DataGridView();
+            progressBar1 = new ProgressBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // inputLabel
-            // 
-            inputLabel.AutoSize = true;
-            inputLabel.ForeColor = Color.FromArgb(246, 244, 230);
-            inputLabel.Location = new Point(13, 283);
-            inputLabel.Name = "inputLabel";
-            inputLabel.Size = new Size(100, 20);
-            inputLabel.TabIndex = 15;
-            inputLabel.Text = "Aranan Değer";
-            // 
-            // patternLabel
-            // 
-            patternLabel.AutoSize = true;
-            patternLabel.ForeColor = Color.FromArgb(246, 244, 230);
-            patternLabel.Location = new Point(12, 237);
-            patternLabel.Name = "patternLabel";
-            patternLabel.Size = new Size(101, 20);
-            patternLabel.TabIndex = 12;
-            patternLabel.Text = "Regex Pattern";
             // 
             // folderPathTextBox
             // 
@@ -73,28 +58,8 @@
             folderPathTextBox.Location = new Point(12, 78);
             folderPathTextBox.Multiline = true;
             folderPathTextBox.Name = "folderPathTextBox";
-            folderPathTextBox.Size = new Size(244, 29);
+            folderPathTextBox.Size = new Size(623, 29);
             folderPathTextBox.TabIndex = 17;
-            // 
-            // patternTextBox
-            // 
-            patternTextBox.BackColor = Color.FromArgb(82, 87, 93);
-            patternTextBox.BorderStyle = BorderStyle.None;
-            patternTextBox.ForeColor = Color.FromArgb(246, 244, 230);
-            patternTextBox.Location = new Point(129, 239);
-            patternTextBox.Name = "patternTextBox";
-            patternTextBox.Size = new Size(217, 20);
-            patternTextBox.TabIndex = 18;
-            // 
-            // containingTextBox
-            // 
-            containingTextBox.BackColor = Color.FromArgb(82, 87, 93);
-            containingTextBox.BorderStyle = BorderStyle.None;
-            containingTextBox.ForeColor = Color.FromArgb(246, 244, 230);
-            containingTextBox.Location = new Point(129, 283);
-            containingTextBox.Name = "containingTextBox";
-            containingTextBox.Size = new Size(218, 20);
-            containingTextBox.TabIndex = 19;
             // 
             // pictureBox1
             // 
@@ -118,7 +83,7 @@
             rjButton1.FlatStyle = FlatStyle.Flat;
             rjButton1.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             rjButton1.ForeColor = Color.White;
-            rjButton1.Location = new Point(262, 78);
+            rjButton1.Location = new Point(665, 78);
             rjButton1.Name = "rjButton1";
             rjButton1.Size = new Size(123, 27);
             rjButton1.TabIndex = 21;
@@ -137,9 +102,9 @@
             closeButton.FlatAppearance.BorderSize = 0;
             closeButton.FlatStyle = FlatStyle.Flat;
             closeButton.ForeColor = Color.White;
-            closeButton.Location = new Point(364, 5);
+            closeButton.Location = new Point(784, 6);
             closeButton.Name = "closeButton";
-            closeButton.Size = new Size(21, 21);
+            closeButton.Size = new Size(22, 21);
             closeButton.TabIndex = 22;
             closeButton.TextColor = Color.White;
             closeButton.UseVisualStyleBackColor = false;
@@ -155,9 +120,9 @@
             minimizedButton.FlatAppearance.BorderSize = 0;
             minimizedButton.FlatStyle = FlatStyle.Flat;
             minimizedButton.ForeColor = Color.White;
-            minimizedButton.Location = new Point(337, 5);
+            minimizedButton.Location = new Point(757, 6);
             minimizedButton.Name = "minimizedButton";
-            minimizedButton.Size = new Size(21, 21);
+            minimizedButton.Size = new Size(22, 21);
             minimizedButton.TabIndex = 23;
             minimizedButton.TextColor = Color.White;
             minimizedButton.UseVisualStyleBackColor = false;
@@ -167,42 +132,87 @@
             // 
             titleLabel.AutoSize = true;
             titleLabel.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            titleLabel.ForeColor = Color.White;
             titleLabel.Location = new Point(49, 10);
             titleLabel.Name = "titleLabel";
             titleLabel.Size = new Size(177, 22);
             titleLabel.TabIndex = 24;
             titleLabel.Text = "Method Return Checker";
             // 
-            // loadingLabel
+            // splitContainer1
             // 
-            loadingLabel.AutoSize = true;
-            loadingLabel.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            loadingLabel.Location = new Point(265, 120);
-            loadingLabel.Name = "loadingLabel";
-            loadingLabel.Size = new Size(124, 17);
-            loadingLabel.TabIndex = 25;
-            loadingLabel.Text = "Dosyalar taranıyor...";
-            loadingLabel.Visible = false;
+            splitContainer1.Location = new Point(12, 146);
+            splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.BackColor = Color.FromArgb(251, 195, 78);
+            splitContainer1.Panel1.Controls.Add(label1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.BackColor = Color.SlateGray;
+            splitContainer1.Panel2.Controls.Add(label2);
+            splitContainer1.Size = new Size(776, 46);
+            splitContainer1.SplitterDistance = 393;
+            splitContainer1.TabIndex = 26;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(121, 15);
+            label1.Name = "label1";
+            label1.Size = new Size(160, 17);
+            label1.TabIndex = 0;
+            label1.Text = "Bulunan Method Sayısı";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(177, 13);
+            label2.Name = "label2";
+            label2.Size = new Size(17, 20);
+            label2.TabIndex = 1;
+            label2.Text = "0";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.FromArgb(82, 87, 93);
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 198);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(776, 305);
+            dataGridView1.TabIndex = 25;
+            // 
+            // progressBar1
+            // 
+            progressBar1.Location = new Point(12, 113);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(623, 23);
+            progressBar1.TabIndex = 27;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(65, 68, 75);
-            ClientSize = new Size(397, 386);
-            Controls.Add(loadingLabel);
+            ClientSize = new Size(814, 530);
+            Controls.Add(progressBar1);
+            Controls.Add(splitContainer1);
+            Controls.Add(dataGridView1);
             Controls.Add(titleLabel);
             Controls.Add(minimizedButton);
             Controls.Add(closeButton);
             Controls.Add(rjButton1);
             Controls.Add(pictureBox1);
-            Controls.Add(containingTextBox);
-            Controls.Add(patternTextBox);
             Controls.Add(folderPathTextBox);
-            Controls.Add(inputLabel);
-            Controls.Add(patternLabel);
             Font = new Font("Segoe UI Emoji", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            ForeColor = Color.FromArgb(246, 244, 230);
+            ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
@@ -212,23 +222,30 @@
             MouseMove += Form1_MouseMove;
             MouseUp += Form1_MouseUp;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Label inputLabel;
-        private Label patternLabel;
         private FolderBrowserDialog folderBrowserDialog1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox folderPathTextBox;
-        private TextBox patternTextBox;
-        private TextBox containingTextBox;
         private PictureBox pictureBox1;
         private RJButton rjButton1;
         private RJButton closeButton;
         private RJButton minimizedButton;
         private Label titleLabel;
-        private Label loadingLabel;
+        private SplitContainer splitContainer1;
+        private Label label1;
+        private Label label2;
+        private DataGridView dataGridView1;
+        private ProgressBar progressBar1;
     }
 }

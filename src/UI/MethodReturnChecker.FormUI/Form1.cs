@@ -11,15 +11,13 @@ namespace MethodReturnChecker.FormUI
 {
     public partial class Form1 : Form
     {
-        private readonly FileModelService _fileModelService;
+        private readonly FileService _fileModelService;
         private bool isDragging = false;
         private Point dragStartPoint;
         public Form1()
         {
             InitializeComponent();
-            _fileModelService = new FileModelService();
-            patternTextBox.Text = RegexDefaults.DefaultPattern;
-            containingTextBox.Text = RegexDefaults.DefaultContainting;
+            _fileModelService = new FileService();
         }
 
         private async void selectFolderButton_Click(object sender, EventArgs e)
@@ -27,53 +25,43 @@ namespace MethodReturnChecker.FormUI
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 folderPathTextBox.Text = folderBrowserDialog1.SelectedPath;
-                
-            }
-            else
-            {
-                folderPathTextBox.Text = string.Empty;
+                matchSelectedFiles(folderBrowserDialog1.SelectedPath, "*.cs");
             }
 
-            loadingLabel.Visible = true;
-            await Task.Run(matchAllCsFiles);
-            loadingLabel.Visible = false;
         }
 
-        private async Task matchAllCsFiles()
+        private void matchSelectedFiles(string folderPath, string fileExtention)
         {
-            if (!string.IsNullOrWhiteSpace(folderPathTextBox.Text))
+            var csFiles = Directory.GetFiles(folderPath, fileExtention, SearchOption.AllDirectories).ToList();
+
+            var resultModels = new List<ResultModel>();
+
+            progressBar1.Maximum = csFiles.Count;
+            progressBar1.Value = 0;
+
+            foreach (var csFilePath in csFiles)
             {
-                var csFiles = getFilesWithFileExtention(folderPathTextBox.Text, "*.cs");
+                var matchedResults = _fileModelService.MatchFile(csFilePath, RegexDefaults.DefaultPattern, RegexDefaults.DefaultContainting);
+                resultModels.AddRange(matchedResults);
 
-                var csFileModelsResult = _fileModelService.ReturnFileModelForPerFile(csFiles, folderPathTextBox.Text);
-
-                if (!csFileModelsResult.Success)
-                {
-                    MessageBox.Show(csFileModelsResult.Message);
-                }
-
-                var matchedResults = _fileModelService.GetMatchedFileModelResults(csFileModelsResult.Data, patternTextBox.Text, containingTextBox.Text);
-                displayMatchResultForm(matchedResults.Data);
+                progressBar1.Value++;
             }
+
+            displayMatchResultForm(resultModels);
         }
 
         private void displayMatchResultForm(List<ResultModel> matchedResults)
         {
-            
-            Form2 form2 = new Form2(matchedResults);
-            form2.ShowDialog();
-        }
-
-        private List<string> getFilesWithFileExtention(string folderPath, string fileExtention)
-        {
-            List<string> files = Directory.GetFiles(folderPath, fileExtention, SearchOption.AllDirectories).ToList();
-
-            if (files != null)
+            dataGridView1.DataSource = matchedResults;
+            label2.Text = matchedResults.Count.ToString();
+            if (matchedResults.Count > 0)
             {
-                return files;
+                splitContainer1.Panel2.BackColor = Color.IndianRed;
             }
-
-            return new List<string>();
+            else
+            {
+                splitContainer1.Panel2.BackColor = Color.PaleGreen;
+            }
         }
 
         private void closeButton_Click(object sender, EventArgs e)
