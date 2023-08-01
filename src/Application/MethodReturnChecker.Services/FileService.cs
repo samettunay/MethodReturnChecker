@@ -7,7 +7,7 @@ namespace MethodReturnChecker.Services
 {
     public class FileService : IFileService
     {
-        public List<ResultModel> MatchFile(string folderPath, string filePath, string pattern, string containingValue)
+        public List<ResultModel> GetMatchedFileResults(string folderPath, string filePath, string pattern, string containingValue)
         {
             List<ResultModel> resultModels = new List<ResultModel>();
 

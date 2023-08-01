@@ -39,7 +39,7 @@ namespace MethodReturnChecker.FormUI
 
             foreach (var csFilePath in csFiles)
             {
-                var matchedResults = _fileModelService.MatchFile(folderPath, csFilePath, _defaultPattern, _defaultContaining);
+                var matchedResults = _fileModelService.GetMatchedFileResults(folderPath, csFilePath, _defaultPattern, _defaultContaining);
                 resultModels.AddRange(matchedResults);
 
                 progressBar1.Value++;
@@ -75,7 +75,6 @@ namespace MethodReturnChecker.FormUI
             try
             {
                 string settingsJson = File.ReadAllText("Settings.json");
-
                 dynamic jsonData = JsonConvert.DeserializeObject(settingsJson);
 
                 _defaultPattern = jsonData.DefaultPattern;
