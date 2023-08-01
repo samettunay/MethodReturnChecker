@@ -32,17 +32,13 @@
             folderBrowserDialog1 = new FolderBrowserDialog();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             folderPathTextBox = new TextBox();
-            pictureBox1 = new PictureBox();
             rjButton1 = new RJButton();
-            closeButton = new RJButton();
-            minimizedButton = new RJButton();
-            titleLabel = new Label();
             splitContainer1 = new SplitContainer();
             label1 = new Label();
             label2 = new Label();
             dataGridView1 = new DataGridView();
             progressBar1 = new ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            refreshButton = new RJButton();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -52,28 +48,19 @@
             // 
             // folderPathTextBox
             // 
+            folderPathTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             folderPathTextBox.BackColor = Color.FromArgb(82, 87, 93);
             folderPathTextBox.BorderStyle = BorderStyle.None;
             folderPathTextBox.ForeColor = Color.FromArgb(246, 244, 230);
-            folderPathTextBox.Location = new Point(12, 78);
+            folderPathTextBox.Location = new Point(12, 36);
             folderPathTextBox.Multiline = true;
             folderPathTextBox.Name = "folderPathTextBox";
             folderPathTextBox.Size = new Size(623, 29);
             folderPathTextBox.TabIndex = 17;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.BackgroundImageLayout = ImageLayout.Center;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(7, 6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(37, 29);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 20;
-            pictureBox1.TabStop = false;
-            // 
             // rjButton1
             // 
+            rjButton1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             rjButton1.BackColor = Color.FromArgb(251, 195, 78);
             rjButton1.BackgroundColor = Color.FromArgb(251, 195, 78);
             rjButton1.BorderColor = Color.PaleVioletRed;
@@ -83,7 +70,7 @@
             rjButton1.FlatStyle = FlatStyle.Flat;
             rjButton1.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             rjButton1.ForeColor = Color.White;
-            rjButton1.Location = new Point(665, 78);
+            rjButton1.Location = new Point(665, 36);
             rjButton1.Name = "rjButton1";
             rjButton1.Size = new Size(123, 27);
             rjButton1.TabIndex = 21;
@@ -92,65 +79,21 @@
             rjButton1.UseVisualStyleBackColor = false;
             rjButton1.Click += selectFolderButton_Click;
             // 
-            // closeButton
-            // 
-            closeButton.BackColor = Color.Crimson;
-            closeButton.BackgroundColor = Color.Crimson;
-            closeButton.BorderColor = Color.PaleVioletRed;
-            closeButton.BorderRadius = 11;
-            closeButton.BorderSize = 0;
-            closeButton.FlatAppearance.BorderSize = 0;
-            closeButton.FlatStyle = FlatStyle.Flat;
-            closeButton.ForeColor = Color.White;
-            closeButton.Location = new Point(784, 6);
-            closeButton.Name = "closeButton";
-            closeButton.Size = new Size(22, 21);
-            closeButton.TabIndex = 22;
-            closeButton.TextColor = Color.White;
-            closeButton.UseVisualStyleBackColor = false;
-            closeButton.Click += closeButton_Click;
-            // 
-            // minimizedButton
-            // 
-            minimizedButton.BackColor = Color.Gold;
-            minimizedButton.BackgroundColor = Color.Gold;
-            minimizedButton.BorderColor = Color.PaleVioletRed;
-            minimizedButton.BorderRadius = 11;
-            minimizedButton.BorderSize = 0;
-            minimizedButton.FlatAppearance.BorderSize = 0;
-            minimizedButton.FlatStyle = FlatStyle.Flat;
-            minimizedButton.ForeColor = Color.White;
-            minimizedButton.Location = new Point(757, 6);
-            minimizedButton.Name = "minimizedButton";
-            minimizedButton.Size = new Size(22, 21);
-            minimizedButton.TabIndex = 23;
-            minimizedButton.TextColor = Color.White;
-            minimizedButton.UseVisualStyleBackColor = false;
-            minimizedButton.Click += minimizedButton_Click;
-            // 
-            // titleLabel
-            // 
-            titleLabel.AutoSize = true;
-            titleLabel.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            titleLabel.ForeColor = Color.White;
-            titleLabel.Location = new Point(49, 10);
-            titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(177, 22);
-            titleLabel.TabIndex = 24;
-            titleLabel.Text = "Method Return Checker";
-            // 
             // splitContainer1
             // 
-            splitContainer1.Location = new Point(12, 146);
+            splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            splitContainer1.Location = new Point(12, 116);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.AutoScroll = true;
             splitContainer1.Panel1.BackColor = Color.FromArgb(251, 195, 78);
             splitContainer1.Panel1.Controls.Add(label1);
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.AutoScroll = true;
             splitContainer1.Panel2.BackColor = Color.SlateGray;
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Size = new Size(776, 46);
@@ -159,6 +102,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
@@ -170,6 +114,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.ForeColor = Color.White;
             label2.Location = new Point(177, 13);
@@ -180,21 +125,45 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.FromArgb(82, 87, 93);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 198);
+            dataGridView1.Location = new Point(12, 182);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(776, 305);
+            dataGridView1.Size = new Size(776, 321);
             dataGridView1.TabIndex = 25;
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(12, 113);
+            progressBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            progressBar1.Location = new Point(12, 72);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(623, 23);
             progressBar1.TabIndex = 27;
+            progressBar1.Visible = false;
+            // 
+            // refreshButton
+            // 
+            refreshButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            refreshButton.BackColor = Color.FromArgb(251, 195, 78);
+            refreshButton.BackgroundColor = Color.FromArgb(251, 195, 78);
+            refreshButton.BorderColor = Color.PaleVioletRed;
+            refreshButton.BorderRadius = 10;
+            refreshButton.BorderSize = 0;
+            refreshButton.FlatAppearance.BorderSize = 0;
+            refreshButton.FlatStyle = FlatStyle.Flat;
+            refreshButton.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            refreshButton.ForeColor = Color.White;
+            refreshButton.Location = new Point(665, 68);
+            refreshButton.Name = "refreshButton";
+            refreshButton.Size = new Size(123, 27);
+            refreshButton.TabIndex = 28;
+            refreshButton.Text = "Yenile";
+            refreshButton.TextColor = Color.White;
+            refreshButton.UseVisualStyleBackColor = false;
+            refreshButton.Click += refreshButton_Click;
             // 
             // Form1
             // 
@@ -202,26 +171,20 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(65, 68, 75);
             ClientSize = new Size(814, 530);
+            Controls.Add(refreshButton);
             Controls.Add(progressBar1);
             Controls.Add(splitContainer1);
             Controls.Add(dataGridView1);
-            Controls.Add(titleLabel);
-            Controls.Add(minimizedButton);
-            Controls.Add(closeButton);
             Controls.Add(rjButton1);
-            Controls.Add(pictureBox1);
             Controls.Add(folderPathTextBox);
             Font = new Font("Segoe UI Emoji", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
-            FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
-            MouseDown += Form1_MouseDown;
-            MouseMove += Form1_MouseMove;
-            MouseUp += Form1_MouseUp;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            Text = "Method Return Checker";
+            Load += Form1_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -237,15 +200,12 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox folderPathTextBox;
-        private PictureBox pictureBox1;
         private RJButton rjButton1;
-        private RJButton closeButton;
-        private RJButton minimizedButton;
-        private Label titleLabel;
         private SplitContainer splitContainer1;
         private Label label1;
         private Label label2;
         private DataGridView dataGridView1;
         private ProgressBar progressBar1;
+        private RJButton refreshButton;
     }
 }

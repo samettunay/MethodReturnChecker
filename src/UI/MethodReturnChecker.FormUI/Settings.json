@@ -1,0 +1,4 @@
+﻿{
+    "DefaultPattern": "Oku[^\\s]*\\([^)]*\\)",
+    "DefaultContainting": "List"
+}

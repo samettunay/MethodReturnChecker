@@ -12,5 +12,6 @@ namespace MethodReturnChecker.Common.Constants
         public static string FolderCouldNotBeFound = "Belirtilen klasör bulunamadı";
         public static string SelectFileFirst = "Lütfen önce dosya seçiniz.";
         public static string DataIsEmpty = "Eşleşen değer bulunamadı.";
+        public static string SettingsReadError = "Settings dosyası okunurken bir hata oluştu!";
     }
 }

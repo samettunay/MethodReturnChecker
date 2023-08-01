@@ -1,26 +1,24 @@
 using MethodReturnChecker.Common.Constants;
 using MethodReturnChecker.Common.Models;
 using MethodReturnChecker.Services;
-using System.ComponentModel;
-using System.Diagnostics.Metrics;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Newtonsoft.Json;
+using System.Runtime;
 
 namespace MethodReturnChecker.FormUI
 {
     public partial class Form1 : Form
     {
         private readonly FileService _fileModelService;
-        private bool isDragging = false;
-        private Point dragStartPoint;
+        private string _defaultPattern;
+        private string _defaultContaining;
+
         public Form1()
         {
             InitializeComponent();
             _fileModelService = new FileService();
         }
 
-        private async void selectFolderButton_Click(object sender, EventArgs e)
+        private void selectFolderButton_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -35,19 +33,27 @@ namespace MethodReturnChecker.FormUI
             var csFiles = Directory.GetFiles(folderPath, fileExtention, SearchOption.AllDirectories).ToList();
 
             var resultModels = new List<ResultModel>();
-
+            progressBar1.Visible = true;
             progressBar1.Maximum = csFiles.Count;
             progressBar1.Value = 0;
 
             foreach (var csFilePath in csFiles)
             {
-                var matchedResults = _fileModelService.MatchFile(folderPath, csFilePath, RegexDefaults.DefaultPattern, RegexDefaults.DefaultContainting);
+                var matchedResults = _fileModelService.MatchFile(folderPath, csFilePath, _defaultPattern, _defaultContaining);
                 resultModels.AddRange(matchedResults);
 
                 progressBar1.Value++;
             }
 
+            progressBar1.Visible = false;
             displayMatchResultForm(resultModels);
+        }
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
+            {
+                matchSelectedFiles(folderBrowserDialog1.SelectedPath, "*.cs");
+            }
         }
 
         private void displayMatchResultForm(List<ResultModel> matchedResults)
@@ -64,38 +70,23 @@ namespace MethodReturnChecker.FormUI
             }
         }
 
-        private void closeButton_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void minimizedButton_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
+            try
             {
-                isDragging = true;
-                dragStartPoint = new Point(e.X, e.Y);
+                string settingsJson = File.ReadAllText("Settings.json");
+
+                dynamic jsonData = JsonConvert.DeserializeObject(settingsJson);
+
+                _defaultPattern = jsonData.DefaultPattern;
+                _defaultContaining = jsonData.DefaultContainting;
             }
-        }
+            catch (Exception ex)
+            {
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (!isDragging)
-                return;
-
-            Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
-            newLocation.Offset(-dragStartPoint.X, -dragStartPoint.Y);
-            this.Location = newLocation;
-        }
-
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-            isDragging = false;
+                MessageBox.Show(ex.Message, Messages.SettingsReadError);
+                this.Close();
+            }
         }
     }
 }
