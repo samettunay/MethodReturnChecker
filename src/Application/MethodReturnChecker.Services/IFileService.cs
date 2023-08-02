@@ -4,6 +4,6 @@ namespace MethodReturnChecker.Services
 {
     public interface IFileService
     {
-        List<ResultModel> GetMatchedFileResults(string folderPath, string filePath, string pattern, string containingValue);
+        List<ResultModel> GetMatchedFileResults(string folderPath, string filePath, string pattern, string sought, bool shouldInclude);
     }
 }

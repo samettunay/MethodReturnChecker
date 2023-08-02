@@ -7,7 +7,7 @@ namespace MethodReturnChecker.Services
 {
     public class FileService : IFileService
     {
-        public List<ResultModel> GetMatchedFileResults(string folderPath, string filePath, string pattern, string containingValue)
+        public List<ResultModel> GetMatchedFileResults(string folderPath, string filePath, string pattern, string sought, bool shouldInclude)
         {
             List<ResultModel> resultModels = new List<ResultModel>();
 
@@ -23,18 +23,29 @@ namespace MethodReturnChecker.Services
 
                     getMatchedLineWithNumber(content, match, out currentLineNumber, out matchedLine);
 
-                    // Fonksiyondan önce ki index'de "List" içerecek
-                    if (matchedLine.Contains(containingValue) && matchedLine.IndexOf(containingValue) < matchedLine.IndexOf(match.Value))
+                    var newResultModel = new ResultModel()
                     {
-                        var newResultModel = new ResultModel()
-                        {
-                            FilePath = filePath.Replace(folderPath, string.Empty),
-                            MatchedLine = matchedLine.Trim(),
-                            LineNumber = currentLineNumber,
-                        };
+                        FilePath = filePath.Replace(folderPath, string.Empty),
+                        MatchedLine = matchedLine.Trim(),
+                        LineNumber = currentLineNumber,
+                    };
 
-                        resultModels.Add(newResultModel);
+                    if (shouldInclude)
+                    {
+                        if (matchedLine.Contains(sought) && matchedLine.IndexOf(sought) < matchedLine.IndexOf(match.Value))
+                        {
+                            resultModels.Add(newResultModel);
+                        }
                     }
+                    else
+                    {
+                        if (!matchedLine.Contains(sought) || (matchedLine.Contains(sought) && matchedLine.IndexOf(sought) > matchedLine.IndexOf(match.Value)))
+                        {
+                            resultModels.Add(newResultModel);
+                        }
+                    }
+
+
                 }
             }
             catch (Exception ex)

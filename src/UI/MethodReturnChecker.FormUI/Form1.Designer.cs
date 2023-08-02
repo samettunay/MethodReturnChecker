@@ -35,10 +35,11 @@
             rjButton1 = new RJButton();
             splitContainer1 = new SplitContainer();
             label1 = new Label();
-            label2 = new Label();
+            resultCountLabel = new Label();
             dataGridView1 = new DataGridView();
             progressBar1 = new ProgressBar();
             refreshButton = new RJButton();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -52,10 +53,10 @@
             folderPathTextBox.BackColor = Color.FromArgb(82, 87, 93);
             folderPathTextBox.BorderStyle = BorderStyle.None;
             folderPathTextBox.ForeColor = Color.FromArgb(246, 244, 230);
-            folderPathTextBox.Location = new Point(12, 36);
+            folderPathTextBox.Location = new Point(12, 29);
             folderPathTextBox.Multiline = true;
             folderPathTextBox.Name = "folderPathTextBox";
-            folderPathTextBox.Size = new Size(623, 29);
+            folderPathTextBox.Size = new Size(623, 31);
             folderPathTextBox.TabIndex = 17;
             // 
             // rjButton1
@@ -70,9 +71,9 @@
             rjButton1.FlatStyle = FlatStyle.Flat;
             rjButton1.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             rjButton1.ForeColor = Color.White;
-            rjButton1.Location = new Point(665, 36);
+            rjButton1.Location = new Point(665, 29);
             rjButton1.Name = "rjButton1";
-            rjButton1.Size = new Size(123, 27);
+            rjButton1.Size = new Size(123, 29);
             rjButton1.TabIndex = 21;
             rjButton1.Text = "Klasör Seç";
             rjButton1.TextColor = Color.White;
@@ -82,7 +83,7 @@
             // splitContainer1
             // 
             splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            splitContainer1.Location = new Point(12, 116);
+            splitContainer1.Location = new Point(12, 111);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -95,7 +96,7 @@
             // 
             splitContainer1.Panel2.AutoScroll = true;
             splitContainer1.Panel2.BackColor = Color.SlateGray;
-            splitContainer1.Panel2.Controls.Add(label2);
+            splitContainer1.Panel2.Controls.Add(resultCountLabel);
             splitContainer1.Size = new Size(776, 46);
             splitContainer1.SplitterDistance = 393;
             splitContainer1.TabIndex = 26;
@@ -112,16 +113,16 @@
             label1.TabIndex = 0;
             label1.Text = "Bulunan Method Sayısı";
             // 
-            // label2
+            // resultCountLabel
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label2.AutoSize = true;
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(177, 13);
-            label2.Name = "label2";
-            label2.Size = new Size(17, 20);
-            label2.TabIndex = 1;
-            label2.Text = "0";
+            resultCountLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            resultCountLabel.AutoSize = true;
+            resultCountLabel.ForeColor = Color.White;
+            resultCountLabel.Location = new Point(177, 13);
+            resultCountLabel.Name = "resultCountLabel";
+            resultCountLabel.Size = new Size(17, 20);
+            resultCountLabel.TabIndex = 1;
+            resultCountLabel.Text = "0";
             // 
             // dataGridView1
             // 
@@ -129,18 +130,18 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.FromArgb(82, 87, 93);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 182);
+            dataGridView1.Location = new Point(12, 183);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(776, 321);
+            dataGridView1.Size = new Size(776, 344);
             dataGridView1.TabIndex = 25;
             // 
             // progressBar1
             // 
             progressBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            progressBar1.Location = new Point(12, 72);
+            progressBar1.Location = new Point(12, 65);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(623, 23);
+            progressBar1.Size = new Size(623, 25);
             progressBar1.TabIndex = 27;
             progressBar1.Visible = false;
             // 
@@ -156,21 +157,36 @@
             refreshButton.FlatStyle = FlatStyle.Flat;
             refreshButton.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             refreshButton.ForeColor = Color.White;
-            refreshButton.Location = new Point(665, 68);
+            refreshButton.Location = new Point(665, 64);
             refreshButton.Name = "refreshButton";
-            refreshButton.Size = new Size(123, 27);
+            refreshButton.Size = new Size(123, 29);
             refreshButton.TabIndex = 28;
             refreshButton.Text = "Yenile";
             refreshButton.TextColor = Color.White;
             refreshButton.UseVisualStyleBackColor = false;
             refreshButton.Click += refreshButton_Click;
             // 
+            // comboBox1
+            // 
+            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox1.BackColor = Color.FromArgb(65, 68, 75);
+            comboBox1.DisplayMember = "1";
+            comboBox1.ForeColor = Color.White;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "List dönderen Oku metotlarını tara", "List döndermeyen Getir metotlarını tara" });
+            comboBox1.Location = new Point(12, 65);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(623, 28);
+            comboBox1.TabIndex = 29;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(65, 68, 75);
-            ClientSize = new Size(814, 530);
+            ClientSize = new Size(814, 554);
+            Controls.Add(comboBox1);
             Controls.Add(refreshButton);
             Controls.Add(progressBar1);
             Controls.Add(splitContainer1);
@@ -203,9 +219,10 @@
         private RJButton rjButton1;
         private SplitContainer splitContainer1;
         private Label label1;
-        private Label label2;
+        private Label resultCountLabel;
         private DataGridView dataGridView1;
         private ProgressBar progressBar1;
         private RJButton refreshButton;
+        private ComboBox comboBox1;
     }
 }
