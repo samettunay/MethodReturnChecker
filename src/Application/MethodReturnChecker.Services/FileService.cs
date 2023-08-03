@@ -39,7 +39,16 @@ namespace MethodReturnChecker.Services
                     }
                     else
                     {
-                        if (!matchedLine.Contains(sought) || (matchedLine.Contains(sought) && matchedLine.IndexOf(sought) > matchedLine.IndexOf(match.Value)))
+                        Match newMatch = match;
+
+                        // Aşağı satıra geçenler için tekrar Matchleme
+                        if (match.Value.Contains("\n"))
+                        {
+                            string modifiedPattern = pattern.Substring(0, pattern.Length - 2);
+                            newMatch = Regex.Match(matchedLine, modifiedPattern);
+                        }
+
+                        if (!matchedLine.Contains(sought) || (matchedLine.Contains(sought) && matchedLine.IndexOf(sought) > matchedLine.IndexOf(newMatch.Value)))
                         {
                             resultModels.Add(newResultModel);
                         }
@@ -66,6 +75,7 @@ namespace MethodReturnChecker.Services
 
         private static void getMatchedLineWithNumber(string content, Match match, out int currentLineNumber, out string matchedLine)
         {
+
             int matchStartIndex = match.Index;
             int lineStartIndex = content.LastIndexOf('\n', matchStartIndex) + 1;
 
@@ -73,7 +83,9 @@ namespace MethodReturnChecker.Services
             int lineEndIndex = content.IndexOf('\n', matchStartIndex);
 
             if (lineEndIndex == -1)
+            {
                 lineEndIndex = content.Length;
+            }
 
             matchedLine = content.Substring(lineStartIndex, lineEndIndex - lineStartIndex);
         }
