@@ -32,12 +32,20 @@ namespace MethodReturnChecker.FormUI
 
         }
 
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
+            {
+                matchSelectedFiles(folderBrowserDialog1.SelectedPath, _fileExtention, _pattern, _containing, _sought);
+            }
+        }
+
         private void matchSelectedFiles(string folderPath, string fileExtention, string pattern, string sought, bool shouldInclude)
         {
+            var resultModels = new List<ResultModel>();
             var csFiles = Directory.GetFiles(folderPath, fileExtention, SearchOption.AllDirectories).ToList();
 
-            var resultModels = new List<ResultModel>();
-            comboBox1.Visible = false;
+            selectMethodComboBox.Visible = false;
             progressBar1.Visible = true;
             progressBar1.Maximum = csFiles.Count;
             progressBar1.Value = 0;
@@ -51,18 +59,11 @@ namespace MethodReturnChecker.FormUI
             }
 
             progressBar1.Visible = false;
-            comboBox1.Visible = true;
-            displayMatchResultForm(resultModels);
-        }
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
-            {
-                matchSelectedFiles(folderBrowserDialog1.SelectedPath, _fileExtention, _pattern, _containing, _sought);
-            }
+            selectMethodComboBox.Visible = true;
+            displayMatchResult(resultModels);
         }
 
-        private void displayMatchResultForm(List<ResultModel> matchedResults)
+        private void displayMatchResult(List<ResultModel> matchedResults)
         {
             dataGridView1.DataSource = matchedResults;
             resultCountLabel.Text = matchedResults.Count.ToString();
@@ -85,6 +86,7 @@ namespace MethodReturnChecker.FormUI
 
                 _settings = jsonData;
                 _containing = jsonData.Containting;
+                selectMethodComboBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -92,12 +94,12 @@ namespace MethodReturnChecker.FormUI
                 MessageBox.Show(ex.Message, Messages.SettingsReadError);
                 this.Close();
             }
-            comboBox1.SelectedIndex = 0;
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex.Equals(0))
+            if (selectMethodComboBox.SelectedIndex.Equals(0))
             {
                 _pattern = _settings.ReadPattern;
                 _sought = true;

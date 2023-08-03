@@ -34,12 +34,12 @@
             folderPathTextBox = new TextBox();
             rjButton1 = new RJButton();
             splitContainer1 = new SplitContainer();
-            label1 = new Label();
+            countInfoLabel = new Label();
             resultCountLabel = new Label();
             dataGridView1 = new DataGridView();
             progressBar1 = new ProgressBar();
             refreshButton = new RJButton();
-            comboBox1 = new ComboBox();
+            selectMethodComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -90,7 +90,7 @@
             // 
             splitContainer1.Panel1.AutoScroll = true;
             splitContainer1.Panel1.BackColor = Color.FromArgb(251, 195, 78);
-            splitContainer1.Panel1.Controls.Add(label1);
+            splitContainer1.Panel1.Controls.Add(countInfoLabel);
             // 
             // splitContainer1.Panel2
             // 
@@ -101,17 +101,17 @@
             splitContainer1.SplitterDistance = 393;
             splitContainer1.TabIndex = 26;
             // 
-            // label1
+            // countInfoLabel
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(121, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(160, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Bulunan Method Sayısı";
+            countInfoLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            countInfoLabel.AutoSize = true;
+            countInfoLabel.Font = new Font("Segoe UI Emoji", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            countInfoLabel.ForeColor = Color.White;
+            countInfoLabel.Location = new Point(121, 15);
+            countInfoLabel.Name = "countInfoLabel";
+            countInfoLabel.Size = new Size(160, 17);
+            countInfoLabel.TabIndex = 0;
+            countInfoLabel.Text = "Bulunan Method Sayısı";
             // 
             // resultCountLabel
             // 
@@ -166,19 +166,19 @@
             refreshButton.UseVisualStyleBackColor = false;
             refreshButton.Click += refreshButton_Click;
             // 
-            // comboBox1
+            // selectMethodComboBox
             // 
-            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox1.BackColor = Color.FromArgb(65, 68, 75);
-            comboBox1.DisplayMember = "1";
-            comboBox1.ForeColor = Color.White;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "List dönderen Oku metotlarını tara", "List döndermeyen Getir metotlarını tara" });
-            comboBox1.Location = new Point(12, 65);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(623, 28);
-            comboBox1.TabIndex = 29;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            selectMethodComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            selectMethodComboBox.BackColor = Color.FromArgb(65, 68, 75);
+            selectMethodComboBox.DisplayMember = "1";
+            selectMethodComboBox.ForeColor = Color.White;
+            selectMethodComboBox.FormattingEnabled = true;
+            selectMethodComboBox.Items.AddRange(new object[] { "List dönderen Oku metotlarını tara", "List döndermeyen Getir metotlarını tara" });
+            selectMethodComboBox.Location = new Point(12, 65);
+            selectMethodComboBox.Name = "selectMethodComboBox";
+            selectMethodComboBox.Size = new Size(623, 28);
+            selectMethodComboBox.TabIndex = 29;
+            selectMethodComboBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -186,7 +186,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(65, 68, 75);
             ClientSize = new Size(814, 554);
-            Controls.Add(comboBox1);
+            Controls.Add(selectMethodComboBox);
             Controls.Add(refreshButton);
             Controls.Add(progressBar1);
             Controls.Add(splitContainer1);
@@ -218,11 +218,11 @@
         private TextBox folderPathTextBox;
         private RJButton rjButton1;
         private SplitContainer splitContainer1;
-        private Label label1;
+        private Label countInfoLabel;
         private Label resultCountLabel;
         private DataGridView dataGridView1;
         private ProgressBar progressBar1;
         private RJButton refreshButton;
-        private ComboBox comboBox1;
+        private ComboBox selectMethodComboBox;
     }
 }
